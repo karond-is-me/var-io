@@ -1,6 +1,10 @@
 # var-io模块介绍
-var-io是希望在使用jupyter环境时更方便的查看并管理变量
-
+var-io是希望在使用jupyter环境时更方便的查看并管理变量<p>
+Manage your variable in jupyter
+## 安装
+```
+pip install var-io
+```
 ## 功能
 1. 跟踪并查看变量
 2. 保存或载入变量
