@@ -10,16 +10,18 @@ import pandas as pd
 
 
 class VarHome:
+    """
+    method:可选择'filter'或者'choose'，两种工作方式
+    """
     def __init__(self,method = 'filter'):
-        """
-        method:可选择'filter'或者'choose'，两种工作方式
-        """
         assert method in ['filter','choose']
         self.method = method
         if self.method == 'filter':
             self.__exclude_list = []
+            self.__choose_list = []
         elif self.method == 'choose':
             self.__choose_list = []
+            self.__exclude_list = []
         self.strict = True
         self.exclude_unsupported = True
         self._jupyterlab_variableinspector_nms = NamespaceMagics()
@@ -37,10 +39,10 @@ class VarHome:
         if self.exclude_unsupported == True:
             self.__filter_unsupported()
         if self.method == 'filter':
-            self.__var_inf = {k:v for k,v in self.__var_inf.items() if k not in  self.__exclude_list}
+            self.__var_inf = {k:v for k,v in self.__var_inf.items() if ((k not in  self.__exclude_list) or (k in self.__choose_list))}
         elif self.method == 'choose':
-            self.__var_inf = {k:v for k,v in self.__var_inf.items() if k  in  self.__choose_list}
-
+            self.__var_inf = {k:v for k,v in self.__var_inf.items() if ((k  in  self.__choose_list) and k not in self.__exclude_list)}
+ 
     def vars(self):
         self.__var_base()
         show_df = pd.DataFrame(self.__var_inf).T
@@ -76,13 +78,23 @@ class VarHome:
     def exclude_var(self,var_name):
         if var_name not in self.__exclude_list:
             self.__exclude_list.append(var_name)
-        print('屏蔽变量：'+var_name)
+            if var_name in self.__choose_list:
+                self.__choose_list.remove(var_name)
+            print('屏蔽变量：'+var_name)
+        else:
+            print('已存在')
     def choose_var(self,var_name):
         if var_name not in self.__choose_list and var_name in self.__update_var_list():
             self.__choose_list.append(var_name)
-        print('选定变量：'+var_name)
+            if var_name in self.__exclude_list:
+                self.__exclude_list.remove(var_name)
+            print('选定变量：'+var_name)
+        else:
+            print('未能添加')
     def reset(self):
         self.__init_var_list = []
+        self.__exclude_list = []
+        self.__choose_list = []
     def del_var(self,var_name):
         if var_name in _main_module.__dict__.keys():
             _main_module.__dict__.pop(var_name)
