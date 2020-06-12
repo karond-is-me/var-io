@@ -16,18 +16,12 @@ class VarHome:
     def __init__(self,method = 'filter'):
         assert method in ['filter','choose']
         self.method = method
-        if self.method == 'filter':
-            self.__exclude_list = []
-            self.__choose_list = []
-        elif self.method == 'choose':
-            self.__choose_list = []
-            self.__exclude_list = []
         self.strict = True
         self.exclude_unsupported = True
         self._jupyterlab_variableinspector_nms = NamespaceMagics()
         self._jupyterlab_variableinspector_Jupyter = get_ipython()
         self._jupyterlab_variableinspector_nms.shell = self._jupyterlab_variableinspector_Jupyter.kernel.shell
-        self.__init_var_list = self.__update_var_list()
+        self.reset_all()
 
     def __var_base(self):
         need_list = [i for i in self.__update_var_list() if i not in self.__init_var_list]
