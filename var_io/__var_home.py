@@ -91,7 +91,7 @@ class VarHome:
             print('选定变量：'+var_name)
         else:
             print('未能添加')
-    def reset(self):
+    def reset_all(self):
         self.__init_var_list = []
         self.__exclude_list = []
         self.__choose_list = []
