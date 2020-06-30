@@ -1,5 +1,5 @@
 # var-io模块介绍
-v0.2.4
+v0.2.7<p>
 var-io是希望在使用jupyter环境时更方便的查看并管理变量<p>
 Manage your variable in jupyter
 ## 安装
@@ -52,7 +52,7 @@ c = pd.Series([1,2,3])
 vh.vars()     #当前没有跟踪的变量
 ```
 
-### 其他
+### 变量管理
 ```python
 vh.save_data('./test.ipynbdata')    #保存目前跟踪的变量
 vh.load_data('./test.ipynbdata')    #将保存的变量加载到当前命名空间中

@@ -5,7 +5,7 @@ with open("README.md", "r",encoding='utf-8') as fh:
 
 setuptools.setup(
     name="var-io", # Replace with your own username
-    version="0.2.4",
+    version="0.2.7",
     author="karond",
     author_email="dingyaohui.g@outlook.com",
     description="Manage your variable in jupyter",
