@@ -256,7 +256,14 @@ def get_size(item):
         return 1
 
 def memory_usage(item):
-    return sys.getsizeof(item)
+    if isinstance(item, (ndarray, MaskedArray, Index, Series)):
+        return item.nbytes
+
+    elif isinstance(item, (DataFrame)):
+        return item.memory_usage().sum()
+    else:
+        return sys.getsizeof(item)
+
 
 
 

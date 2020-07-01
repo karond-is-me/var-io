@@ -1,5 +1,5 @@
 # var-io模块介绍
-v0.2.7<p>
+v0.2.8<p>
 var-io是希望在使用jupyter环境时更方便的查看并管理变量<p>
 Manage your variable in jupyter
 ## 安装
